@@ -15,3 +15,5 @@ const optionsReducer = (state = initialState, action) => {
       return state;
   }
 }
+
+export default optionsReducer;

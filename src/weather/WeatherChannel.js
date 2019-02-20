@@ -7,24 +7,6 @@ import CityCondition from './CityCondition';
 
 export default class WeatherChannel extends Component {
 
-
-  // Prepre merge to redux store
-  /*
-
-  const state = {
-    weatherData: {
-      condition:{}, forecast:[]
-    },
-    options: {
-      curCity: '',
-      tempUnit: 'C'
-    }
-  }
-
-  re-render  -> redux-react
-  wrap to new component (parent component) , setState in new component automatically
-
-  */
   state = {
     condition: {
       city: 'Brisbane, Au',
@@ -69,8 +51,7 @@ export default class WeatherChannel extends Component {
   render() {
     const{condition, forecastData, unit} = this.state;
     return (
-      <div>
-         <div className="weather-channel__container">
+      <div className="weather-channel__container">
         <Header />
         <Navbar tempSwitch={this.tempSwitch} />
         <main>
@@ -78,7 +59,6 @@ export default class WeatherChannel extends Component {
             <Forecaster data={forecastData} unit={unit}/>
         </main>
         <Footer />
-      </div>
       </div>
     )
   }

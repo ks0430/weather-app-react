@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import WeatherChannel from './weather/WeatherChannel';
+// Without redux
+// import WeatherChannel from './weather/WeatherChannel';
+// Within redux
+import WeatherRedux from './WeatherRedux/WeatherRedux';
+
+
 import "./styles/main.css";
-
-
-
 
 class App extends Component {
   render() {
     return (
-      <WeatherChannel />
+      <WeatherRedux />
     );
   }
 }
