@@ -22,7 +22,8 @@ export default class WeatherChannel extends Component {
     },
     forecastData: [],
     unit: 'F',
-    curCity: 'Shanghai'
+    curCity: 'Shanghai',
+    curSize: 5,
   }
 
   async componentDidMount() {
@@ -58,15 +59,25 @@ export default class WeatherChannel extends Component {
     this.setState({condition:data});
   }
 
+  sizeChange = (size) => {
+
+    this.setState({curSize: size});
+  }
+
+
   render() {
-    const{ condition, forecastData, unit, curCity } = this.state;
+    const{ condition, forecastData, unit, curCity, curSize } = this.state;
+
+    const filteredData = forecastData.slice(0, curSize);
+
+
     return (
       <div className="weather-channel__container">
         <Header />
         <Navbar tempSwitch={this.tempSwitch} curCity={curCity} changeCity={this.changeCity} searchCity={this.searchCity} />
         <main>
             <CityCondition data={condition} unit={unit} />
-            <Forecaster data={forecastData} unit={unit}/>
+            <Forecaster data={filteredData} unit={unit} onSizeChange={this.sizeChange}/>
         </main>
         <Footer />
       </div>

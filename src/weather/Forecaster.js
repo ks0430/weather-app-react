@@ -1,13 +1,12 @@
 import React from 'react';
 
 const Forecaster = (props) => {
-    const {data, unit} = props;
-
+    const {data, unit, onSizeChange} = props;
     return (
       <section className="weather-forecast">
         <div className="forecast__switch">
-            <button className="forecast__switch_0 switch-active">5 items</button>
-            <button className="forecast__switch_1">10 items</button>
+            <button className="forecast__switch_0 switch-active" onClick={() => onSizeChange(5)} >5 items</button>
+            <button className="forecast__switch_1" onClick={() => onSizeChange(10)}>10 items</button>
         </div>
         {
             data.map((item,i) => 
