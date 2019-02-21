@@ -6,11 +6,16 @@ import WeatherRedux from './WeatherRedux/WeatherRedux';
 
 
 import "./styles/main.css";
+import WeatherChannel from './weather/WeatherChannel';
 
 class App extends Component {
   render() {
     return (
-      <WeatherRedux />
+      <div>
+        <WeatherRedux />
+        <h1>Origin without redux</h1>
+        <WeatherChannel/>
+      </div>
     );
   }
 }

@@ -6,11 +6,11 @@ import iconCompass from '../images/icon/icon-compass.png';
 // Design props data
 
 const CityCondition = (props) => {
-  const {city,humidity,windSpeed,windDirection,temp} = props.data;
+  const {city, humidity,windSpeed,windDirection,temp} = props.data;
   const {unit} = props;
   return (
     <section className="weather-condition">
-      <div className="weather-condition__location">{city}</div>
+      <div className="weather-condition__location" style={{textTransform:"uppercase"}} >{city}</div>
         <div style={{textAlign: "center", fontSize: "14px"}}>Clear</div>
         <div className="weather-condition__temp">{temp[unit]} {unit}</div>
         <div className="weather-condition__desc">

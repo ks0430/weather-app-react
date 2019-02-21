@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Navbar = (props) => {
+const Navbar = ({tempSwitch, changeCity, curCity, searchCity}) => {
   return (
     <nav>
       <div style={{flex:"1"}}>
-          <input className="search-input" />
-          <button className="search-btn"><i className="fa fa-search"></i></button>
-          <button className="temp-switch" onClick={props.tempSwitch}>
+          <input className="search-input" value={curCity} onChange={changeCity} />
+          <button className="search-btn" onClick={searchCity}><i className="fa fa-search" ></i></button>
+          <button className="temp-switch" onClick={tempSwitch}>
           <i
               className="fa fa-thermometer-empty"
               aria-hidden="true"
