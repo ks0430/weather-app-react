@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/lib/Async';
-import { fetchCityList, fetchCurrentData, fetchForecastData } from '../api/weather';
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
+import { fetchCityList } from '../api/weather';
 
 const TimeManager = [];
 
@@ -24,7 +18,6 @@ const customStyles = {
   }),
   dropdownIndicator: (provided, state) => ({
     ...provided,
-
   }),
   indicatorSeparator: (provided, state) => ({
     ...provided,
@@ -43,7 +36,6 @@ export default class Navbar extends Component {
   }
 
   loadOptions =  (inputValue, callBack) => {
-
     const timeout = setTimeout(() => {
       console.log("load change:", inputValue);
       // get citylist from remote 
@@ -51,26 +43,19 @@ export default class Navbar extends Component {
         .then(response => {
           callBack(this.filterCity(inputValue, response));
         });
-
-      // callBack(this.filteredColors(inputValue));
     }, 500);
 
-    // Delete previous sending
+    // Delete previous typing sending
     if(TimeManager.length>0) {
       while(TimeManager.length>0) {
-        let timeout = TimeManager.pop(timeout);
+        let timeout = TimeManager.pop();
         clearTimeout(timeout);
       }
       console.log("clear time out!");
-      // return;
     }
-
+    // Add current time event
     TimeManager.push(timeout);
   }
-
-  filteredColors = (inputValue) => (
-    options.filter(item => item.label.toLowerCase().includes(inputValue.toLowerCase()))
-  )
 
   filterCity = (inputValue, cityList) => (
     cityList.map(item => ({
@@ -88,10 +73,9 @@ export default class Navbar extends Component {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   }
- 
 
   render() {
-    const{ tempSwitch, changeCity, curCity, searchCity, selectedOption, selectCity  } = this.props;
+    const{ tempSwitch, selectCity } = this.props;
     return (
       <nav>
         <div style={{flex:"1", display:"flex"}}>
@@ -99,11 +83,8 @@ export default class Navbar extends Component {
               cacheOptions
               loadOptions={this.loadOptions}
               styles={customStyles}
-              onInputChange={this.inputChange}
               onChange={selectCity}
             />
-            {/* <input className="search-input" value={curCity} onChange={changeCity} />
-            <button className="search-btn" onClick={searchCity}><i className="fa fa-search" ></i></button> */}
             <button className="temp-switch" onClick={tempSwitch}>
             <i
                 className="fa fa-thermometer-empty"
@@ -112,7 +93,6 @@ export default class Navbar extends Component {
             ></i>
             <sup>&deg;</sup>C
             </button>
-
         </div>
       </nav>
     )
