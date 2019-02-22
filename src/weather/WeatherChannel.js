@@ -43,7 +43,6 @@ export default class WeatherChannel extends Component {
   }
 
   sizeChange = (size) => {
-    this.setState()
     this.setState({forecastSize: size});
   }
 

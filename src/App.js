@@ -12,9 +12,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <WeatherRedux /> */}
+        <WeatherRedux />
         <h1>Origin without redux</h1>
-        <WeatherApp/>
+        {/* <WeatherApp/> */}
       </div>
     );
   }

@@ -1,6 +1,8 @@
+import { CHANGE_WEATHER_CONDITION, CHANGE_WEATHER_FORECAST } from '../actions/ActionType';
+
 const initialState = {
   condition: {
-    city: 'Brisbane, Au',
+    city: 'SHanghai, Au',
     humidity: 62,
     windSpeed: 230,
     windDirection: 'east',
@@ -33,7 +35,16 @@ const initialState = {
 
 const weatherReducer = (state = initialState, action) => {
   switch(action.type) {
-
+    case CHANGE_WEATHER_CONDITION:
+      return {
+        ...state,
+        condition: action.condition
+      }
+    case CHANGE_WEATHER_FORECAST:
+      return {
+        ...state,
+        forecast: action.forecast
+      }
     default:
       return state;
   }
