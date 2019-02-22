@@ -1,12 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Forecaster = (props) => {
-    const {data, unit, onSizeChange} = props;
+    const {data, unit, onSizeChange, forecastSize} = props;
+
+    const buttons = [5,10]
+
     return (
       <section className="weather-forecast">
         <div className="forecast__switch">
-            <button className="forecast__switch_0 switch-active" onClick={() => onSizeChange(5)} >5 items</button>
-            <button className="forecast__switch_1" onClick={() => onSizeChange(10)}>10 items</button>
+            {buttons.map(btn => 
+                <button 
+                  key={btn} 
+                  className={ getBtnClassName(btn, forecastSize) }
+                  onClick={() => onSizeChange(btn)}
+                  >
+                  {btn} items
+                  </button>
+            )}
         </div>
         {
             data.map((item,i) => 
@@ -22,6 +32,12 @@ const Forecaster = (props) => {
         }
       </section>
      )
+}
+
+const getBtnClassName = (btn, forecastSize) => {
+  let className = btn === 5 ? "forecast__switch_0" : "forecast__switch_1";
+  className += btn === forecastSize ? " switch-active" : "" ;
+  return className;
 }
 
 export default Forecaster;

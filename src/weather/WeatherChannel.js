@@ -13,8 +13,8 @@ export default class WeatherChannel extends Component {
     condition: {},
     forecast: [],
     unit: 'C',
-    curSize: 5,
-    curCitycode: 7839562
+    forecastSize: 5,
+    curCitycode: 7839562,
   }
 
   async componentDidMount() {
@@ -60,13 +60,14 @@ export default class WeatherChannel extends Component {
   }
 
   sizeChange = (size) => {
-    this.setState({curSize: size});
+    this.setState()
+    this.setState({forecastSize: size});
   }
 
 
   render() {
-    const{ condition, forecast, unit, curSize } = this.state;
-    const filteredData = forecast.slice(0, curSize);
+    const{ condition, forecast, unit, forecastSize } = this.state;
+    const filteredData = forecast.slice(0, forecastSize);
 
     return (
       <div className="weather-channel__container">
@@ -74,7 +75,7 @@ export default class WeatherChannel extends Component {
         <Navbar tempSwitch={this.tempSwitch}  selectCity={this.selectCity} />
         <main>
             <CityCondition data={condition} unit={unit} />
-            <Forecaster data={filteredData} unit={unit} onSizeChange={this.sizeChange}/>
+            <Forecaster data={filteredData} unit={unit} forecastSize={forecastSize} onSizeChange={this.sizeChange}/>
         </main>
         <Footer />
       </div>
