@@ -24,11 +24,15 @@ export default class WeatherChannel extends Component {
     unit: 'F',
     curCity: 'Shanghai',
     curSize: 5,
+    curCitycode: ''
   }
 
   async componentDidMount() {
     const { city } = this.state.condition;
     const data = await fetchCurrentData(city, 'cn');
+
+    console.log(data);
+
     this.setState({condition:data});
     console.log(data);
 
@@ -60,6 +64,15 @@ export default class WeatherChannel extends Component {
     this.setState({condition:data});
   }
 
+
+  selectCity = async (option) => {
+    console.log(option);
+    const cityCode = option.value;
+    const condition = await fetchCurrentData(null, null, cityCode);
+    const forecastData = await fetchForecastData(null, null, cityCode);
+    this.setState({condition, forecastData});
+  }
+
   sizeChange = (size) => {
 
     this.setState({curSize: size});
@@ -67,7 +80,7 @@ export default class WeatherChannel extends Component {
 
 
   render() {
-    const{ condition, forecastData, unit, curCity, curSize } = this.state;
+    const{ condition, forecastData, unit, curCity, curSize, curCitycode } = this.state;
 
     const filteredData = forecastData.slice(0, curSize);
 
@@ -75,7 +88,7 @@ export default class WeatherChannel extends Component {
     return (
       <div className="weather-channel__container">
         <Header />
-        <Navbar tempSwitch={this.tempSwitch} curCity={curCity} changeCity={this.changeCity} searchCity={this.searchCity} />
+        <Navbar tempSwitch={this.tempSwitch} curCity={curCity} changeCity={this.changeCity} searchCity={this.searchCity} selectCity={this.selectCity} />
         <main>
             <CityCondition data={condition} unit={unit} />
             <Forecaster data={filteredData} unit={unit} onSizeChange={this.sizeChange}/>

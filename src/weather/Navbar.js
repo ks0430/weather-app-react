@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/lib/Async';
-import { fetchCityList } from '../api/weather';
+import { fetchCityList, fetchCurrentData, fetchForecastData } from '../api/weather';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -53,7 +53,7 @@ export default class Navbar extends Component {
         });
 
       // callBack(this.filteredColors(inputValue));
-    }, 2000);
+    }, 500);
 
     // Delete previous sending
     if(TimeManager.length>0) {
@@ -89,12 +89,9 @@ export default class Navbar extends Component {
     console.log(`Option selected:`, selectedOption);
   }
  
-  showSelected = (option) => {
-    console.log("test");
-    console.log(option);
-  }
+
   render() {
-    const{ tempSwitch, changeCity, curCity, searchCity, selectedOption } = this.props;
+    const{ tempSwitch, changeCity, curCity, searchCity, selectedOption, selectCity  } = this.props;
     return (
       <nav>
         <div style={{flex:"1", display:"flex"}}>
@@ -103,7 +100,7 @@ export default class Navbar extends Component {
               loadOptions={this.loadOptions}
               styles={customStyles}
               onInputChange={this.inputChange}
-              onChange={this.showSelected}
+              onChange={selectCity}
             />
             {/* <input className="search-input" value={curCity} onChange={changeCity} />
             <button className="search-btn" onClick={searchCity}><i className="fa fa-search" ></i></button> */}
