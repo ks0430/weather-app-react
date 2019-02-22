@@ -12,7 +12,7 @@ const CityCondition = (props) => {
     <section className="weather-condition">
       <div className="weather-condition__location" style={{textTransform:"uppercase"}} >{city}</div>
         <div style={{textAlign: "center", fontSize: "14px"}}>Clear</div>
-        <div className="weather-condition__temp">{temp[unit]} {unit}</div>
+        <div className="weather-condition__temp">{temp && temp[unit]} {unit}</div>
         <div className="weather-condition__desc">
         <div>
             <img src={iconUmberella} alt="icon-umberella" />
@@ -28,7 +28,5 @@ const CityCondition = (props) => {
     </section >
   )
 }
-
-
 
 export default CityCondition

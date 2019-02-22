@@ -10,35 +10,25 @@ import { fetchCurrentData, fetchForecastData, fetchCityList } from '../api/weath
 export default class WeatherChannel extends Component {
 
   state = {
-    condition: {
-      city: 'Shanghai',
-      humidity: 62,
-      windSpeed: 230,
-      windDirection: 'east',
-      temp: {
-        C: 26, 
-        F:70
-      }
-    },
-    forecastData: [],
-    unit: 'F',
-    curCity: 'Shanghai',
+    condition: {},
+    forecast: [],
+    unit: 'C',
+    curCity: 'Brisbane',
     curSize: 5,
-    curCitycode: ''
+    curCitycode: 7839562
   }
 
   async componentDidMount() {
-    const { city } = this.state.condition;
-    const data = await fetchCurrentData(city, 'cn');
+    // Initial weather channel data.
+    // Initial city is Brisbane: 7839562
 
-    console.log(data);
+    const { curCitycode } = this.state;
 
-    this.setState({condition:data});
-    console.log(data);
+    const condition = await fetchCurrentData(curCitycode);
+    this.setState({condition});
 
-    const forecast = await fetchForecastData(city, 'cn');
-    console.log("didmount",forecast);
-    this.setState({forecastData:forecast});
+    const forecast = await fetchForecastData(curCitycode);
+    this.setState({forecast});
   }
 
   // if use simple function, then this will refer to button component
@@ -80,9 +70,10 @@ export default class WeatherChannel extends Component {
 
 
   render() {
-    const{ condition, forecastData, unit, curCity, curSize, curCitycode } = this.state;
+    console.log("test",process.env.REACT_APP_APIURL);
+    const{ condition, forecast, unit, curCity, curSize, curCitycode } = this.state;
 
-    const filteredData = forecastData.slice(0, curSize);
+    const filteredData = forecast.slice(0, curSize);
 
 
     return (

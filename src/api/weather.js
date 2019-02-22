@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-// const apitest = "https://weather-app-server-01.herokuapp.com/api/weather/au/brisbane";
-const API = "https://weather-app-server-01.herokuapp.com/api";
+// Gei APIURL from .env file
+const API = process.env.REACT_APP_APPURL;
 
-const fetchCurrentData = (city, country = "au", citycode = "") => {
-  return getWeatherAxios(city, country, citycode, "current")
+// Get current weather data
+const fetchCurrentData = (citycode) => {
+  return getWeatherAxios(citycode, "current")
     .then(response => {
       const currentData= response.data.data;
       const newCurrentData = mapCurrentToViewModel(currentData);
@@ -12,8 +13,9 @@ const fetchCurrentData = (city, country = "au", citycode = "") => {
     })
 }
 
-const fetchForecastData = (city, country = "au", citycode = "") => {
-  return getWeatherAxios(city, country, citycode, "forecast")
+// Get forecast weather data
+const fetchForecastData = (citycode) => {
+  return getWeatherAxios(citycode, "forecast")
   .then(response => {
     const {forecast} = response.data.data;
     const newForecastData = mapForecastToViewModel(forecast);
@@ -21,6 +23,7 @@ const fetchForecastData = (city, country = "au", citycode = "") => {
   });
 }
 
+// Search city name, return city list (same city name in different countries)
 const fetchCityList = (city) => {
   return axios.get(`${API}/city/${city}`)
     .then(response => {
@@ -28,18 +31,16 @@ const fetchCityList = (city) => {
     })
 }
 
-
-const getWeatherAxios = (city, country, citycode, weatherType) => {
-  const apiPrefix = `${API}/weather`;
-  const apiParams = citycode === "" ? `/${country}/${city}` : `/${citycode}`;
-  const apiUrl = apiPrefix + apiParams;
+// Wrap weather axios
+const getWeatherAxios = (citycode, weatherType) => {
+  const apiUrl = `${API}/weather/${citycode}`;
   console.log(apiUrl);
   return axios.get(apiUrl, {
     params: { weatherType }
   })
 }
 
-
+// Map forecast data to view model
 const mapForecastToViewModel = (forecast) => {
   return forecast.map(item => {
     let weekdays = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
@@ -53,6 +54,7 @@ const mapForecastToViewModel = (forecast) => {
   })
 }
 
+// Mao current data to view model
 const mapCurrentToViewModel = ({city, current}) => {
   return ({
     city: `${city.name}, ${city.country}`,
@@ -65,7 +67,5 @@ const mapCurrentToViewModel = ({city, current}) => {
     }
   })
 }
-
-
 
 export { fetchCurrentData, fetchForecastData, fetchCityList };

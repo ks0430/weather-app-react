@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 const Forecaster = (props) => {
     const {data, unit, onSizeChange} = props;
@@ -23,6 +23,5 @@ const Forecaster = (props) => {
       </section>
      )
 }
-
 
 export default Forecaster;
