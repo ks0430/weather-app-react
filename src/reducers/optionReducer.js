@@ -13,7 +13,7 @@ const optionsReducer = (state = initialState, action) => {
     case CHANGE_TEMP_UNIT:
       return {...state, tempUnit: action.unit }
     case CHANGE_FORECAST_SIZE:
-      return {...state, forecastSize: action.forcastSize}
+      return {...state, forecastSize: action.forecastSize}
     default:
       return state;
   }
