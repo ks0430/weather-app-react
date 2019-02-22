@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
 import AsyncSelect from 'react-select/lib/Async';
-
+import { fetchCityList } from '../api/weather';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ];
+
+const TimeManager = [];
 
 const customStyles = {
   control: (provided, state) => ({
@@ -41,18 +42,45 @@ export default class Navbar extends Component {
     inputString:''
   }
 
-  loadOptions = (inputValue, callBack) => {
-    setTimeout(() => {
-      callBack(this.filteredColors(inputValue));
-    }, 1000);
+  loadOptions =  (inputValue, callBack) => {
+
+    const timeout = setTimeout(() => {
+      console.log("load change:", inputValue);
+      // get citylist from remote 
+      fetchCityList(inputValue)
+        .then(response => {
+          callBack(this.filterCity(inputValue, response));
+        });
+
+      // callBack(this.filteredColors(inputValue));
+    }, 2000);
+
+    // Delete previous sending
+    if(TimeManager.length>0) {
+      while(TimeManager.length>0) {
+        let timeout = TimeManager.pop(timeout);
+        clearTimeout(timeout);
+      }
+      console.log("clear time out!");
+      // return;
+    }
+
+    TimeManager.push(timeout);
   }
 
   filteredColors = (inputValue) => (
     options.filter(item => item.label.toLowerCase().includes(inputValue.toLowerCase()))
   )
 
+  filterCity = (inputValue, cityList) => (
+    cityList.map(item => ({
+      value: item.id,
+      label: `${item.name}, ${item.country}`
+    }))
+  )
+
   inputChange = (newValue) => {
-    this.setState({inputString:newValue});
+    this.setState({ inputString: newValue });
     return newValue;
   }
 
@@ -61,6 +89,10 @@ export default class Navbar extends Component {
     console.log(`Option selected:`, selectedOption);
   }
  
+  showSelected = (option) => {
+    console.log("test");
+    console.log(option);
+  }
   render() {
     const{ tempSwitch, changeCity, curCity, searchCity, selectedOption } = this.props;
     return (
@@ -71,6 +103,7 @@ export default class Navbar extends Component {
               loadOptions={this.loadOptions}
               styles={customStyles}
               onInputChange={this.inputChange}
+              onChange={this.showSelected}
             />
             {/* <input className="search-input" value={curCity} onChange={changeCity} />
             <button className="search-btn" onClick={searchCity}><i className="fa fa-search" ></i></button> */}

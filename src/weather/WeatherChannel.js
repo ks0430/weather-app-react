@@ -4,7 +4,7 @@ import Header from './Header';
 import Navbar from './Navbar';
 import Forecaster from './Forecaster';
 import CityCondition from './CityCondition';
-import { fetchCurrentData, fetchForecastData } from '../api/weather';
+import { fetchCurrentData, fetchForecastData, fetchCityList } from '../api/weather';
 
 
 export default class WeatherChannel extends Component {
@@ -45,6 +45,7 @@ export default class WeatherChannel extends Component {
 
   changeCity = (e) => {
     const city = e.target.value;
+
     this.setState({
       curCity: city
     }, ()=> {

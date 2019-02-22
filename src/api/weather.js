@@ -48,4 +48,13 @@ const fetchForecastData = (city, country = "au") => {
 }
 
 
-export { fetchCurrentData, fetchForecastData };
+const fetchCityList = (city) => {
+  return axios.get(`${API}/city/${city}`)
+    .then(response => {
+      // console.log("citylist", response);
+      return response.data.data;
+    })
+}
+
+
+export { fetchCurrentData, fetchForecastData, fetchCityList };
