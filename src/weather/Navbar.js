@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/lib/Async';
 
 
 const options = [
@@ -32,14 +33,29 @@ const customStyles = {
     ...provided,
     color: "white"
   })
-
 }
-
 
 export default class Navbar extends Component {
   state = {
     selectedOption: null,
+    inputString:''
   }
+
+  loadOptions = (inputValue, callBack) => {
+    setTimeout(() => {
+      callBack(this.filteredColors(inputValue));
+    }, 1000);
+  }
+
+  filteredColors = (inputValue) => (
+    options.filter(item => item.label.toLowerCase().includes(inputValue.toLowerCase()))
+  )
+
+  inputChange = (newValue) => {
+    this.setState({inputString:newValue});
+    return newValue;
+  }
+
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
@@ -50,8 +66,14 @@ export default class Navbar extends Component {
     return (
       <nav>
         <div style={{flex:"1", display:"flex"}}>
-            <input className="search-input" value={curCity} onChange={changeCity} />
-            <button className="search-btn" onClick={searchCity}><i className="fa fa-search" ></i></button>
+             <AsyncSelect 
+              cacheOptions
+              loadOptions={this.loadOptions}
+              styles={customStyles}
+              onInputChange={this.inputChange}
+            />
+            {/* <input className="search-input" value={curCity} onChange={changeCity} />
+            <button className="search-btn" onClick={searchCity}><i className="fa fa-search" ></i></button> */}
             <button className="temp-switch" onClick={tempSwitch}>
             <i
                 className="fa fa-thermometer-empty"
@@ -60,12 +82,7 @@ export default class Navbar extends Component {
             ></i>
             <sup>&deg;</sup>C
             </button>
-            <Select
-              value={selectedOption}
-              onChange={this.handleChange}
-              options={options}
-              styles={customStyles}
-            />
+
         </div>
       </nav>
     )
