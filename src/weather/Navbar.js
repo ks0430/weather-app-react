@@ -42,6 +42,10 @@ export default class Navbar extends Component {
       fetchCityList(inputValue)
         .then(response => {
           callBack(this.filterCity(inputValue, response));
+        })
+        .catch(err => {
+          // If city code is not found, then return 
+          callBack([]);
         });
     }, 500);
 
@@ -84,6 +88,7 @@ export default class Navbar extends Component {
               loadOptions={this.loadOptions}
               styles={customStyles}
               onChange={selectCity}
+              noOptionsMessage = {()=>"City not found"}
             />
             <button className="temp-switch" onClick={tempSwitch}>
             <i
