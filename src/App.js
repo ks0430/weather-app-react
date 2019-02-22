@@ -6,7 +6,7 @@ import WeatherRedux from './WeatherRedux/WeatherRedux';
 
 
 import "./styles/main.css";
-import WeatherChannel from './weather/WeatherChannel';
+import WeatherApp from './weather/WeatherApp';
 
 class App extends Component {
   render() {
@@ -14,7 +14,7 @@ class App extends Component {
       <div>
         {/* <WeatherRedux /> */}
         <h1>Origin without redux</h1>
-        <WeatherChannel/>
+        <WeatherApp/>
       </div>
     );
   }
