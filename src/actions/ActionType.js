@@ -21,6 +21,8 @@ export const getWeatherData = citycode => async dispatch => {
     // Initial city is Brisbane: 7839562
     const condition = await fetchCurrentData(citycode);
     const forecast = await fetchForecastData(citycode);
+
+
     // Get data from remote then dispatch
     dispatch({
       type: CHANGE_WEATHER_CONDITION,

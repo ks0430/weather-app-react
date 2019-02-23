@@ -30,11 +30,7 @@ const customStyles = {
 }
 
 export default class Navbar extends Component {
-  state = {
-    selectedOption: null,
-    inputString:''
-  }
-
+ 
   loadOptions =  (inputValue, callBack) => {
     const timeout = setTimeout(() => {
       console.log("load change:", inputValue);
@@ -67,16 +63,6 @@ export default class Navbar extends Component {
       label: `${item.name}, ${item.country}`
     }))
   )
-
-  inputChange = (newValue) => {
-    this.setState({ inputString: newValue });
-    return newValue;
-  }
-
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
-  }
 
   render() {
     const{ tempSwitch, selectCity } = this.props;
