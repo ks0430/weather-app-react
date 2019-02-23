@@ -35,4 +35,35 @@ export const getWeatherData = citycode => async dispatch => {
 }
 
 
+export const FETCH_WEATHER_CONDITION = "FETCH_WEATHER_CONDITION";
+export const FETCH_WEATHER_FORECAST = "FETCH_WEATHER_FORECAST";
+
+export const fetchWeatherData = citycode => async dispatch => {
+  // Dispatch fetch process
+    dispatch({
+      type: FETCH_WEATHER_CONDITION,
+    });
+    dispatch({
+      type: FETCH_WEATHER_FORECAST
+    })
+
+    // Initial weather channel data.
+    // Initial city is Brisbane: 7839562
+    const condition = await fetchCurrentData(citycode);
+    const forecast = await fetchForecastData(citycode);
+
+    // After fetch weather condition
+    dispatch({
+      type: FETCH_WEATHER_CONDITION,
+      status: "success",
+      response: condition
+    })
+
+    dispatch({
+      type: FETCH_WEATHER_FORECAST,
+      status: "success",
+      response: forecast
+    })
+} 
+
 
