@@ -33,7 +33,7 @@ class WeatherChannelRedux extends Component {
 
     return (
       <div>
-        <Navbar tempSwitch={ this.tempSwitch } selectCity={ this.selectCity } />
+        <Navbar tempSwitch={ this.tempSwitch } selectCity={ this.selectCity } unit={unit} />
         <WeatherChannelBodyRedux 
           conditionData={conditionData}
           forecastData={forecastData}

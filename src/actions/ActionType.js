@@ -18,7 +18,8 @@ export const FETCH_WEATHER_CONDITION = "FETCH_WEATHER_CONDITION";
 export const FETCH_WEATHER_FORECAST = "FETCH_WEATHER_FORECAST";
 
 export const fetchWeatherData = citycode => async dispatch => {
-  // Dispatch fetch process
+  try {
+    // Dispatch fetch process
     dispatch({
       type: FETCH_WEATHER_CONDITION,
       status: "request"
@@ -45,6 +46,30 @@ export const fetchWeatherData = citycode => async dispatch => {
       status: "success",
       response: forecast
     })
+  }catch(e) {
+    // console.log("error", e.response, e.request);
+
+    // if(e.response && e.response.status === '404') {
+    //   toast.error("Api page no response");
+    //   console.log("test2");
+    //   dispatch({
+    //     type: FETCH_WEATHER_CONDITION,
+    //     status: "failure",
+    //   })
+    //   dispatch({
+    //     type: FETCH_WEATHER_FORECAST,
+    //     status: "failure",
+    //   })
+    //   return;
+    // }
+
+    // if(e.request.status === 404) {
+    //   toast.error("Api page no response");
+    //   console.log("api doesn't exist");
+    // } 
+
+  }
+
 } 
 
 

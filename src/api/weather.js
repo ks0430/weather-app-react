@@ -1,5 +1,5 @@
-import axios from 'axios';
-
+import axios from './httpService';
+import { toast } from 'react-toastify';
 // Gei APIURL from .env file
 const API = process.env.REACT_APP_APPURL;
 
@@ -11,6 +11,9 @@ const fetchCurrentData = (citycode) => {
       const newCurrentData = mapCurrentToViewModel(currentData);
       return newCurrentData;
     })
+    .catch(e => {
+      toast.error("current data cannot be found!");
+    }) 
 }
 
 // Get forecast weather data
@@ -20,7 +23,11 @@ const fetchForecastData = (citycode) => {
     const {forecast} = response.data.data;
     const newForecastData = mapForecastToViewModel(forecast);
     return newForecastData;
-  });
+  })
+  .catch(e => {
+    toast.error("forecast cannot be found!");
+  }) 
+  ;
 }
 
 // Search city name, return city list (same city name in different countries)

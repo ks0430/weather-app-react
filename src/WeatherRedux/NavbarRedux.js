@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/lib/Async';
 import { fetchCityList } from '../api/weather';
+import { toast } from 'react-toastify';
 
 const TimeManager = [];
 
@@ -65,7 +66,7 @@ export default class Navbar extends Component {
   )
 
   render() {
-    const{ tempSwitch, selectCity } = this.props;
+    const{ tempSwitch, selectCity, unit } = this.props;
     return (
       <nav>
         <div style={{flex:"1", display:"flex"}}>
@@ -82,7 +83,7 @@ export default class Navbar extends Component {
                 aria-hidden="true"
                 style={{"paddingRight":"5px"}}
             ></i>
-            <sup>&deg;</sup>C
+            <sup>&deg;</sup>{unit}
             </button>
         </div>
       </nav>
