@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './NavbarRedux';
-import CityCondition from '../weather/CityCondition';
-import Forecaster from '../weather/Forecaster';
+import WeatherChannelBodyRedux from './WeatherChannelBodyRedux'
 import { connect } from 'react-redux';
 import { changeTempUnit, changeForecastSize, fetchWeatherData } from '../actions/ActionType';
 
@@ -32,39 +31,23 @@ class WeatherChannelRedux extends Component {
   render() {
     const { conditionData, forecastData, unit, forecastSize} = this.props;
 
-    // get each data status & response
-    const {error: conditionError, status: conditionStatus, response: condition } = conditionData;
-    const {error: forecastError, status: forecastStatus, response: forecast } = forecastData;
-
-    // filter forecast data
-    const filteredData = forecast && forecast.slice(0, forecastSize);
-
     return (
       <div>
         <Navbar tempSwitch={ this.tempSwitch } selectCity={ this.selectCity } />
-        <main>
-            <CityCondition 
-              data={ condition } 
-              unit={ unit } 
-              status={ conditionStatus } 
-              error={ conditionError } 
-            /> 
-            <Forecaster 
-              data={ filteredData } 
-              unit={ unit } 
-              forecastSize={ forecastSize } 
-              onSizeChange={ this.sizeChange }
-              status={ forecastStatus }
-              error={ forecastError }
-            />
-        </main>
+        <WeatherChannelBodyRedux 
+          conditionData={conditionData}
+          forecastData={forecastData}
+          unit={unit}
+          forecastSize={forecastSize}
+          sizeChange={this.sizeChange}
+        />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  console.log("test2",state);
+  // console.log("test2",state);
 
   return {
     conditionData: state.weatherData.conditionData,
