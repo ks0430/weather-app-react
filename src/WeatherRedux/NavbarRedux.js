@@ -7,14 +7,20 @@ const TimeManager = [];
 const customStyles = {
   control: (provided, state) => ({
     ...provided,
-    width: 300,
+    '@media (max-width: 480px) and (min-width: 375px )': {
+      width: "200px",
+    },
+    '@media (min-width: 480px)': {
+      width: "300px",
+    },
+    width: "150px",
     backgroundColor: "#1e202b",
     border: "none"
-    
+
   }),
   container: (provided, state) => ({
     ...provided,
-    width: 300,
+
   }),
   dropdownIndicator: (provided, state) => ({
     ...provided,

@@ -41,7 +41,6 @@ const fetchCityList = (city) => {
 // Wrap weather axios
 const getWeatherAxios = (citycode, weatherType) => {
   const apiUrl = `${API}/weather/${citycode}`;
-  console.log(apiUrl);
   return axios.get(apiUrl, {
     params: { weatherType }
   })
