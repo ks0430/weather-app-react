@@ -23,7 +23,7 @@ const WeatherChannelBodyRedux = ({conditionData, forecastData, unit, sizeChange,
   }
 
   return (
-    <main>
+    <main className="main">
       <CityCondition 
         data={ condition } 
         unit={ unit } 
