@@ -12,7 +12,7 @@ const fetchCurrentData = (citycode) => {
       return newCurrentData;
     })
     .catch(e => {
-      toast.error("current data cannot be found!");
+      toast.error(`current data cannot be found!  ${e.request.responseURL}`);
     }) 
 }
 
@@ -25,7 +25,7 @@ const fetchForecastData = (citycode) => {
     return newForecastData;
   })
   .catch(e => {
-    toast.error("forecast cannot be found!");
+    toast.error(`forecast cannot be found! ${e.request.responseURL}`);
   }) 
   ;
 }

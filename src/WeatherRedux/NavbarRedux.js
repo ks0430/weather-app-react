@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/lib/Async';
 import { fetchCityList } from '../api/weather';
-import { toast } from 'react-toastify';
 
 const TimeManager = [];
 
@@ -34,7 +33,6 @@ export default class Navbar extends Component {
  
   loadOptions =  (inputValue, callBack) => {
     const timeout = setTimeout(() => {
-      console.log("load change:", inputValue);
       // get citylist from remote 
       fetchCityList(inputValue)
         .then(response => {
@@ -52,7 +50,6 @@ export default class Navbar extends Component {
         let timeout = TimeManager.pop();
         clearTimeout(timeout);
       }
-      console.log("clear time out!");
     }
     // Add current time event
     TimeManager.push(timeout);
