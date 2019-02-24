@@ -18,33 +18,28 @@ const weatherReducer = (state = initialState, action) => {
     case FETCH_WEATHER_CONDITION:
       // Process undifeined to empty init empty string.
       // React can not pass undifined value to its children.
-        const conditionStatus = action.status ? action.status : '';
-        const conditionError = action.error ? action.error : ''; 
-        const conditionResponse = action.response ? action.response : {};
-        return {
-          ...state,
-          conditionData: {
-            ...state.conditionData,
-            status: conditionStatus,
-            error: conditionError,
-            response: conditionResponse
-          }
-        };
+      return {
+        ...state,
+        conditionData: {
+          status: action.status || '',
+          error: action.error || '',
+          response: action.response || state.conditionData.response
+        }
+      };
     case FETCH_WEATHER_FORECAST:
-    const forecastStatus = action.status ? action.status : '';
-    const forecastError = action.error ? action.error : ''; 
-    const forecastResponse = action.response ? action.response : [];
       return {
         ...state,
         forecastData: {
-          status: forecastStatus,
-          error: forecastError,
-          response: forecastResponse
+          status: action.status || '',
+          error: action.error || '',
+          response: action.response || state.forecastData.response
         }
       };
     default:
       return state;
   }
 }
+
+
 
 export default weatherReducer;
